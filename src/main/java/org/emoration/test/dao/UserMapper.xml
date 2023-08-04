@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="org.emoration.test.dao.UserMapper">
+
+    <select id="getUser" resultType="org.emoration.test.bean.User">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="getAll" resultType="org.emoration.test.bean.User">
+        select * from user
+    </select>
+
+    <update id="updateUser">
+        update user set name = #{name} where id = #{id}
+    </update>
+
+</mapper>
