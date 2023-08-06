@@ -3,6 +3,7 @@ package org.emoration.test.dao;
 
 import java.util.List;
 
+import org.emoration.mybatis.annotations.Param;
 import org.emoration.test.bean.User;
 
 
@@ -20,7 +21,7 @@ public interface UserMapper {
      * @return
      * @see
      */
-    User getUser(String id);
+    User getUser(@Param("id") String id);
 
     /**
      * 获取所有用户
@@ -35,5 +36,5 @@ public interface UserMapper {
      *
      * @param id
      */
-    void updateUser(String name, String id);
+    void updateUser(@Param("id") String id, @Param("name") String name);
 }

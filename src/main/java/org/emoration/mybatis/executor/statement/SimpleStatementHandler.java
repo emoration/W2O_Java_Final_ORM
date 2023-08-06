@@ -5,9 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.Getter;
 import org.emoration.mybatis.mapping.MappedStatement;
 import org.emoration.mybatis.utils.CommonUtils;
 
@@ -23,12 +26,20 @@ public class SimpleStatementHandler implements StatementHandler {
 
     private MappedStatement mappedStatement;
 
+    @Override
+    public List<String> getParamNames() {
+        return paramNames;
+    }
+
+    private List<String> paramNames;
+
     /**
      * 默认构造方法
      *
      * @param mappedStatement
      */
     public SimpleStatementHandler(MappedStatement mappedStatement) {
+        this.paramNames = new ArrayList<>();
         this.mappedStatement = mappedStatement;
     }
 
@@ -83,9 +94,13 @@ public class SimpleStatementHandler implements StatementHandler {
      * @param source
      * @return
      */
-    private static String parseSymbol(String source) {
+    private String parseSymbol(String source) {
         source = source.trim();
         Matcher matcher = param_pattern.matcher(source);
+        while (matcher.find()) {
+            String paramName = matcher.group(1); // Get the variable name inside #{}
+            paramNames.add(paramName);
+        }
         return matcher.replaceAll("?");
     }
 

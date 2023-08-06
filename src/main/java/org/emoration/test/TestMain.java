@@ -30,7 +30,7 @@ public class TestMain {
         System.out.println("******* " + user);
         System.out.println("*******all " + userMapper.getAll());
 
-        userMapper.updateUser("1123", "1");
+        userMapper.updateUser("1", "1123123");
         System.out.println("*******all " + userMapper.getAll());
     }
 

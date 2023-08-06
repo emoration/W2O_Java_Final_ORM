@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import lombok.Data;
+import org.emoration.mybatis.executor.parameter.ParameterPair;
 import org.emoration.mybatis.mapping.MappedStatement;
 import org.emoration.mybatis.session.SqlSession;
 
@@ -52,8 +54,17 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
             if (Object.class.equals(method.getDeclaringClass())) {
                 return method.invoke(this, args);
             }
-
-            return this.execute(method, args);
+            Parameter[] parameters = method.getParameters();
+            ParameterPair[] parameterPairs = new ParameterPair[parameters.length];
+            for (int i = 0; i < parameters.length; i++) {
+                parameterPairs[i] = new ParameterPair();
+                parameterPairs[i].setParameterValue(args[i]);
+                parameterPairs[i].setParameterName(parameters[i].getName());
+                if (parameters[i].getAnnotation(org.emoration.mybatis.annotations.Param.class) != null) {
+                    parameterPairs[i].setParameterName(parameters[i].getAnnotation(org.emoration.mybatis.annotations.Param.class).value());
+                }
+            }
+            return this.execute(method, parameterPairs);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,5 +105,4 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
 
         return result;
     }
-
 }

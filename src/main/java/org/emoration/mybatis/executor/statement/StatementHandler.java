@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 
 /**
@@ -41,4 +42,6 @@ public interface StatementHandler {
      * @throws SQLException
      */
     void update(PreparedStatement preparedStatement) throws SQLException;
+
+    List<String> getParamNames();
 }
