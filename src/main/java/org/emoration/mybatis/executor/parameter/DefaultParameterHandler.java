@@ -1,12 +1,16 @@
 package org.emoration.mybatis.executor.parameter;
 
 
-import org.emoration.mybatis.binding.MapperProxy;
-
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Locale.ENGLISH;
 
 
 /**
@@ -36,21 +40,23 @@ public class DefaultParameterHandler implements ParameterHandler {
 
             if (null != parameter) {
                 if (parameter.getClass().isArray()) {
-//                    ParameterPair[] params = new ParameterPair[((Object[]) parameter).length];
-//                    Object[] paramObjects = (Object[]) parameter;
-//                    for (int i = 0; i < paramObjects.length; i++) {
-//                        ParameterPair param = (ParameterPair) paramObjects[i];
-//                        params[i] = param;
-//                    }
                     ParameterPair[] params = (ParameterPair[]) parameter;
                     Map<String, Object> paramMap = new HashMap<>();
                     for (ParameterPair param : params) {
                         paramMap.put(param.getParameterName(), param.getParameterValue());
                     }
-                    for (int i = 0; i < params.length; i++) {
+                    for (int i = 0; i < paramNames.size(); i++) {
                         //Mapper保证传入参数类型匹配，这里就不做类型转换了
                         String paramName = paramNames.get(i);
-                        Object paramValue = paramMap.get(paramName);
+                        Object paramValue = null;
+                        if (paramMap.containsKey(paramName)) {
+                            paramValue = paramMap.get(paramName);
+                        } else if (params.length==1) {
+                            paramValue = getFieldValue(params[0].getParameterValue(), paramName);
+                        }
+                        if (paramValue == null) {
+                            throw new SQLException("SQL语句中的参数" + paramName + "未找到");
+                        }
                         ps.setObject(i + 1, paramValue);
                     }
                 }
@@ -58,6 +64,36 @@ public class DefaultParameterHandler implements ParameterHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public static String getFieldValue(Object object, String fieldName) {
+        Class<?> clazz = object.getClass();
+
+        try {
+            // Try to get the value through the getter method (if available)
+            Method getter = clazz.getMethod("get" + capitalize(fieldName));
+            Object value = getter.invoke(object);
+            if (value != null) {
+                return value.toString();
+            }
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignored) {
+            // Ignore exceptions
+        }
+
+        try {
+            // Try to get the value directly from the field
+            Field field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            Object value = field.get(object);
+            if (value != null) {
+                return value.toString();
+            }
+        } catch (NoSuchFieldException | IllegalAccessException ignored) {
+            // Ignore exceptions
+        }
+        return null;
+    }
+    private static String capitalize(String name) {
+        return name.substring(0, 1).toUpperCase(ENGLISH) + name.substring(1);
     }
 
 }

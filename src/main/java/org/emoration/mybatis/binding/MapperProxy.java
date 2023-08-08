@@ -84,11 +84,10 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
         String statementId = this.mapperInterface.getName() + "." + method.getName();
         MappedStatement ms = this.sqlSession.getConfiguration().getMappedStatement(statementId);
 
-        Object result = null;
         switch (ms.getSqlCommandType()) {
             case SELECT -> {
+                Object result = null;
                 Class<?> returnType = method.getReturnType();
-
                 // 如果返回的是list，应该调用查询多个结果的方法，否则只要查单条记录
                 if (Collection.class.isAssignableFrom(returnType)) {
                     //ID为mapper类全名+方法名
@@ -96,13 +95,21 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
                 } else {
                     result = sqlSession.selectOne(statementId, args);
                 }
+                return result;
             }
-            case UPDATE -> sqlSession.update(statementId, args);
+            case UPDATE -> {
+                return sqlSession.update(statementId, args);
+            }
+            case INSERT -> {
+                return sqlSession.insert(statementId, args);
+            }
+            case DELETE -> {
+                return sqlSession.delete(statementId, args);
+            }
             default -> {
                 //TODO 其他方法待实现
             }
         }
-
-        return result;
+        return null;
     }
 }

@@ -12,6 +12,13 @@ import java.util.List;
 public interface SqlSession {
 
     /**
+     * 设置是否自动提交事务
+     *
+     * @param autoCommit
+     */
+    void setAutoCommit(boolean autoCommit);
+
+    /**
      * 查询带条记录
      *
      * @param statementId
@@ -37,7 +44,7 @@ public interface SqlSession {
      * @param statementId
      * @param parameter
      */
-    void update(String statementId, Object parameter);
+    int update(String statementId, Object parameter);
 
 
     /**
@@ -46,7 +53,40 @@ public interface SqlSession {
      * @param statementId
      * @param parameter
      */
-    void insert(String statementId, Object parameter);
+    int insert(String statementId, Object parameter);
+
+    /**
+     * delete
+     *
+     * @param statementId
+     * @param parameter
+     */
+    int delete(String statementId, Object parameter);
+
+    /**
+     * 提交事务
+     */
+    void commit(boolean force);
+
+    /**
+     * 提交事务
+     */
+    void commit();
+
+    /**
+     * 回滚事务
+     */
+    void rollback(boolean force);
+
+    /**
+     * 回滚事务
+     */
+    void rollback();
+
+    /**
+     * 关闭
+     */
+    void close();
 
     /**
      * 获取mapper

@@ -1,6 +1,7 @@
 package org.emoration.mybatis.executor;
 
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.emoration.mybatis.mapping.MappedStatement;
@@ -21,7 +22,7 @@ public interface Executor {
      * @return
      * @see
      */
-    <E> List<E> doQuery(MappedStatement ms, Object parameter);
+    <E> List<E> doQuery(MappedStatement ms, Object parameter) throws SQLException;
 
     /**
      * 更新操作
@@ -29,5 +30,33 @@ public interface Executor {
      * @param ms
      * @param parameter
      */
-    void doUpdate(MappedStatement ms, Object parameter);
+    int doUpdate(MappedStatement ms, Object parameter) throws SQLException;
+
+    /**
+     * 提交事务
+     */
+    void commit() throws SQLException;
+
+    /**
+     * 设置是否自动提交事务
+     *
+     * @param autoCommit
+     * @throws SQLException
+     */
+    void setAutoCommit(boolean autoCommit) throws SQLException;
+
+    /**
+     * 回滚事务
+     */
+    void rollback() throws SQLException;
+
+    /**
+     * 关闭连接
+     */
+    void close() throws SQLException;
+
+    /**
+     * 判断连接是否关闭
+     */
+    boolean isClosed();
 }

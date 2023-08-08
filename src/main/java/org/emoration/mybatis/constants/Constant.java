@@ -23,7 +23,7 @@ public interface Constant {
 
     String DB_USERNAME_CONF = "db.username";
 
-    String db_PASSWORD = "db.password";
+    String DB_PASSWORD = "db.password";
 
     /************ mapper xml  ****************/
 
@@ -47,6 +47,7 @@ public interface Constant {
         SELECT("select"),
         INSERT("insert"),
         UPDATE("update"),
+        DELETE("delete"),
         DEFAULT("default");
 
         private String value;

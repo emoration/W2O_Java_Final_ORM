@@ -41,7 +41,7 @@ public interface StatementHandler {
      * @param preparedStatement
      * @throws SQLException
      */
-    void update(PreparedStatement preparedStatement) throws SQLException;
+    int update(PreparedStatement preparedStatement) throws SQLException;
 
     List<String> getParamNames();
 }

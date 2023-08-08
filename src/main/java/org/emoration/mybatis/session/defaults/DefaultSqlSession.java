@@ -1,8 +1,11 @@
 package org.emoration.mybatis.session.defaults;
 
 
+import java.sql.SQLException;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.emoration.mybatis.executor.Executor;
 import org.emoration.mybatis.executor.SimpleExecutor;
 import org.emoration.mybatis.mapping.MappedStatement;
@@ -22,6 +25,20 @@ public class DefaultSqlSession implements SqlSession {
 
     private final Executor executor;
 
+    private boolean autoCommit;
+
+    public void setAutoCommit(boolean autoCommit) {
+        this.autoCommit = autoCommit;
+        try {
+            this.executor.setAutoCommit(autoCommit);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    private boolean dirty;
+
     /**
      * 默认构造方法
      *
@@ -30,7 +47,6 @@ public class DefaultSqlSession implements SqlSession {
     public DefaultSqlSession(Configuration configuration) {
         this.configuration = configuration;
         this.executor = new SimpleExecutor(configuration);
-
     }
 
     /**
@@ -42,7 +58,6 @@ public class DefaultSqlSession implements SqlSession {
     @Override
     public <T> T selectOne(String statementId, Object parameter) {
         List<T> results = this.<T>selectList(statementId, parameter);
-
         return CommonUtils.isNotEmpty(results) ? results.get(0) : null;
     }
 
@@ -50,13 +65,20 @@ public class DefaultSqlSession implements SqlSession {
      * 查询多条记录
      *
      * @param statementId ID为mapper类全名+方法名
-     * @param parameter 参数列表
+     * @param parameter   参数列表
      * @return
      */
     @Override
     public <E> List<E> selectList(String statementId, Object parameter) {
         MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
-        return this.executor.<E>doQuery(mappedStatement, parameter);
+        try {
+            return this.executor.<E>doQuery(mappedStatement, parameter);
+        } catch (SQLException e) {
+            rollback();
+            close();
+            System.out.println("查询失败, 已尝试回滚并关闭连接");
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -66,14 +88,124 @@ public class DefaultSqlSession implements SqlSession {
      * @param parameter
      */
     @Override
-    public void update(String statementId, Object parameter) {
+    public int update(String statementId, Object parameter) {
+        this.dirty = true;
         MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
-        this.executor.doUpdate(mappedStatement, parameter);
+        try {
+            return this.executor.doUpdate(mappedStatement, parameter);
+        } catch (SQLException e) {
+            rollback();
+            close();
+            System.out.println("更新失败, 已尝试回滚并关闭连接");
+            throw new RuntimeException(e);
+        }
     }
 
+    /**
+     * 插入
+     *
+     * @param statementId
+     * @param parameter
+     */
     @Override
-    public void insert(String statementId, Object parameter) {
-        //TODO 待实现
+    public int insert(String statementId, Object parameter) {
+        //FIXME 待检查
+        this.dirty = true;
+        MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
+        try {
+            return this.executor.doUpdate(mappedStatement, parameter);
+        } catch (SQLException e) {
+            rollback();
+            close();
+            System.out.println("插入失败, 已尝试回滚并关闭连接");
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 删除
+     *
+     * @param statementId
+     * @param parameter
+     */
+    @Override
+    public int delete(String statementId, Object parameter) {
+        //FIXME 待检查
+        this.dirty = true;
+        MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
+        try {
+            return this.executor.doUpdate(mappedStatement, parameter);
+        } catch (SQLException e) {
+            rollback();
+            close();
+            System.out.println("删除失败, 已尝试回滚并关闭连接");
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 提交事务
+     */
+    @Override
+    public void commit(boolean force) {
+        //FIXME 待检查
+        if ((this.dirty && this.autoCommit) || force) {
+            try {
+                this.executor.commit();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        this.dirty = false;
+    }
+
+    /**
+     * 提交事务
+     */
+    @Override
+    public void commit() {
+        commit(false);
+    }
+
+    /**
+     * 回滚事务
+     */
+    @Override
+    public void rollback(boolean force) {
+        //FIXME 待检查
+        if ((this.dirty && this.autoCommit) || force) {
+            try {
+                this.executor.rollback();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        this.dirty = false;
+    }
+
+    /**
+     * 回滚事务
+     */
+    @Override
+    public void rollback() {
+        rollback(false);
+    }
+
+    /**
+     * 关闭
+     */
+    @Override
+    public void close() {
+        //FIXME 待检查
+        if(this.executor.isClosed()){
+            return;
+        }
+        try {
+            this.executor.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        this.dirty = false;
     }
 
     /**

@@ -4,18 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4da14c47-058a-4947-a091-6b7637b37ac4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="4da14c47-058a-4947-a091-6b7637b37ac4" name="Changes" comment="feat:增加了参数注解@Param">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bff05f84-0482-4017-996d-b6d037a89ad2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bff05f84-0482-4017-996d-b6d037a89ad2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/binding/MapperProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/binding/MapperProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/constants/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/constants/Constant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/Executor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/Executor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/SimpleExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/SimpleExecutor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/parameter/DefaultParameterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/parameter/DefaultParameterHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/statement/SimpleStatementHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/statement/SimpleStatementHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/statement/StatementHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/statement/StatementHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/mapping/MappedStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/mapping/MappedStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/SqlSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/SqlSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/defaults/DefaultSqlSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/defaults/DefaultSqlSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/utils/XmlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/utils/XmlUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/test/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/test/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/test/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/test/bean/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/UserMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,35 +42,36 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2TYsS7M7lO7U0UNw3TsEkKyerlm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="TestMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.emoration.test.TestMain" />
@@ -94,8 +101,21 @@
       <option name="presentableId" value="Default" />
       <updated>1691231346423</updated>
       <workItem from="1691231347593" duration="4438000" />
-      <workItem from="1691285869011" duration="8684000" />
+      <workItem from="1691285869011" duration="11791000" />
+      <workItem from="1691368415640" duration="3858000" />
+      <workItem from="1691397511088" duration="6809000" />
+      <workItem from="1691462673175" duration="841000" />
+      <workItem from="1691463527039" duration="1722000" />
     </task>
+    <task id="LOCAL-00001" summary="feat:增加了参数注解@Param">
+      <option name="closed" value="true" />
+      <created>1691320484713</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1691320484713</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,18 +132,17 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat:增加了参数注解@Param" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:增加了参数注解@Param" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/SimpleExecutor.java</url>
-          <line>69</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/parameter/DefaultParameterHandler.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/src/main/java/org/emoration/mybatis/binding/MapperProxy.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

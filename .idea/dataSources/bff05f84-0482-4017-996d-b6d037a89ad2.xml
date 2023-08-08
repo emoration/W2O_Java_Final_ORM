@@ -11,6 +11,8 @@
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="3" parent="1" name="draft2">
+      <IntrospectionTimestamp>2023-08-08.01:59:28</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-08-07.09:59:28</LocalIntrospectionTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="4" parent="1" name="information_schema">
@@ -28,5 +30,17 @@
     <schema id="8" parent="1" name="xzs_gametrading_platform">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
+    <table id="9" parent="3" name="user">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="10" parent="9" name="id">
+      <DasType>varchar(30)|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="11" parent="9" name="name">
+      <DasType>varchar(30)|0s</DasType>
+      <Position>2</Position>
+    </column>
   </database-model>
 </dataSource>

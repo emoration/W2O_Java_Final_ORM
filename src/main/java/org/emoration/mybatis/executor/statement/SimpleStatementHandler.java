@@ -21,7 +21,9 @@ import org.emoration.mybatis.utils.CommonUtils;
  * @Date 2023/8/4
  */
 public class SimpleStatementHandler implements StatementHandler {
-    /** #{}正则匹配 */
+    /**
+     * #{}正则匹配
+     */
     private static Pattern param_pattern = Pattern.compile("#\\{([^\\{\\}]*)\\}");
 
     private MappedStatement mappedStatement;
@@ -83,9 +85,8 @@ public class SimpleStatementHandler implements StatementHandler {
      * @throws SQLException
      */
     @Override
-    public void update(PreparedStatement preparedStatement)
-            throws SQLException {
-        preparedStatement.executeUpdate();
+    public int update(PreparedStatement preparedStatement) throws SQLException {
+        return preparedStatement.executeUpdate();
     }
 
     /**

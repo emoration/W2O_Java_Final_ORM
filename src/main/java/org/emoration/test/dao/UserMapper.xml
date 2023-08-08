@@ -12,5 +12,10 @@
     <update id="updateUser">
         update user set name = #{name} where id = #{id}
     </update>
-
+    <insert id="insertUser">
+        insert into user(name, id) values(#{name}, #{id})
+    </insert>
+    <update id="updateUserByUser">
+        update user set name = #{name} where id = #{id}
+    </update>
 </mapper>

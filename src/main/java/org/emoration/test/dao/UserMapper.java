@@ -14,27 +14,13 @@ import org.emoration.test.bean.User;
  */
 public interface UserMapper {
 
-    /**
-     * 获取单个user
-     *
-     * @param id
-     * @return
-     * @see
-     */
     User getUser(@Param("id") String id);
 
-    /**
-     * 获取所有用户
-     *
-     * @return
-     * @see
-     */
     List<User> getAll();
 
-    /**
-     * 更新用户（功能未完成）
-     *
-     * @param id
-     */
-    void updateUser(@Param("id") String id, @Param("name") String name);
+    int updateUser(@Param("id") String id, @Param("name") String name);
+
+    int insertUser(User user);
+
+    int updateUserByUser(User user);
 }

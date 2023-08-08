@@ -1,5 +1,6 @@
 package org.emoration.mybatis.mapping;
 
+import lombok.Data;
 import org.emoration.mybatis.constants.Constant.SqlType;
 
 /**
@@ -7,6 +8,7 @@ import org.emoration.mybatis.constants.Constant.SqlType;
  * @Description 映射statement
  * @Date 2023/8/4
  */
+@Data
 public final class MappedStatement {
 
     /**
@@ -33,87 +35,5 @@ public final class MappedStatement {
      * sqlCommandType对应select/update/insert等
      */
     private SqlType sqlCommandType;
-
-    /**
-     * @return the namespace
-     */
-    public String getNamespace() {
-        return namespace;
-    }
-
-    /**
-     * @param namespace the namespace to set
-     */
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
-
-    /**
-     * @return the sqlId
-     */
-    public String getSqlId() {
-        return sqlId;
-    }
-
-    /**
-     * @param sqlId the sqlId to set
-     */
-    public void setSqlId(String sqlId) {
-        this.sqlId = sqlId;
-    }
-
-    /**
-     * @return the sql
-     */
-    public String getSql() {
-        return sql;
-    }
-
-    /**
-     * @param sql the sql to set
-     */
-    public void setSql(String sql) {
-        this.sql = sql;
-    }
-
-    /**
-     * @return the resultType
-     */
-    public String getResultType() {
-        return resultType;
-    }
-
-    /**
-     * @param resultType the resultType to set
-     */
-    public void setResultType(String resultType) {
-        this.resultType = resultType;
-    }
-
-
-    /**
-     * @return Returns the sqlCommandType.
-     */
-    public SqlType getSqlCommandType() {
-        return sqlCommandType;
-    }
-
-    /**
-     * @param sqlCommandType The sqlCommandType to set.
-     */
-    public void setSqlCommandType(SqlType sqlCommandType) {
-        this.sqlCommandType = sqlCommandType;
-    }
-
-    /**
-     * toString
-     *
-     * @return
-     */
-    @Override
-    public String toString() {
-        return "MappedStatement [namespace=" + namespace + ", sqlId=" + sqlId + ", sql=" + sql + ", resultType="
-                + resultType + "]";
-    }
 
 }
