@@ -58,7 +58,14 @@ public class DefaultSqlSession implements SqlSession {
     @Override
     public <T> T selectOne(String statementId, Object parameter) {
         List<T> results = this.<T>selectList(statementId, parameter);
-        return CommonUtils.isNotEmpty(results) ? results.get(0) : null;
+        if (results == null || results.isEmpty()) {
+            return null;
+        }
+        if(results.size() > 1) {
+            System.err.println(results);
+            throw new RuntimeException("查询结果不唯一");
+        }
+        return results.get(0);
     }
 
     /**
@@ -192,7 +199,7 @@ public class DefaultSqlSession implements SqlSession {
      */
     @Override
     public void close() {
-        if(this.executor.isClosed()){
+        if (this.executor.isClosed()) {
             return;
         }
         try {

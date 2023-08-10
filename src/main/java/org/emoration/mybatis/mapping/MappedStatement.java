@@ -3,6 +3,9 @@ package org.emoration.mybatis.mapping;
 import lombok.Data;
 import org.emoration.mybatis.constants.Constant.SqlType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Author czh
  * @Description 映射statement
@@ -37,8 +40,18 @@ public final class MappedStatement {
     private String parameterType;
 
     /**
+     * where动态SQL
+     */
+    private List<IfSqlNode> ifSqlNodeList=new ArrayList<>();
+
+    /**
      * sqlCommandType对应select/update/insert等
      */
     private SqlType sqlCommandType;
 
+    @Data
+    public static class IfSqlNode {
+        private String test;
+        private String sql;
+    }
 }

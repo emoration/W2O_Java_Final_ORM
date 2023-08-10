@@ -42,6 +42,9 @@ public interface Constant {
 
     String XML_SELECT_PARAMETER_TYPE = "parameterType";
 
+    String XML_IF_LABEL = "if";
+
+    String XML_IF_TEST = "test";
     /**
      * SQL类型枚举，如select、insert、update
      */

@@ -23,7 +23,7 @@ public interface StatementHandler {
      * @throws SQLException
      * @see
      */
-    PreparedStatement prepare(Connection paramConnection) throws SQLException;
+    PreparedStatement prepare(Connection paramConnection, Object parameter) throws SQLException;
 
     /**
      * 查询数据库

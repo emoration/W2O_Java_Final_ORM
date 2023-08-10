@@ -53,8 +53,14 @@ public class DefaultParameterHandler implements ParameterHandler {
                         Object paramValue = null;
                         if (paramMap.containsKey(paramName)) {
                             paramValue = paramMap.get(paramName);
-                        } else if (params.length==1) {
+                        } else if (params.length == 1) {
                             paramValue = getFieldValue(params[0].getParameterValue(), paramName);
+                            if (paramValue != null) {
+                                System.out.println("[Warning]参数未找到，尝试将参数视为对象，成功获得字段：" + paramName + "=" + paramValue);
+                            } else {
+                                paramValue = params[0].getParameterValue();
+                                System.out.println("[Warning]参数未找到，尝试将参数直接赋值：" + paramName + "=" + paramValue);
+                            }
                         }
                         if (paramValue == null) {
                             throw new SQLException("SQL语句中的参数" + paramName + "未找到");
@@ -67,6 +73,7 @@ public class DefaultParameterHandler implements ParameterHandler {
             e.printStackTrace();
         }
     }
+
     public static String getFieldValue(Object object, String fieldName) {
         Class<?> clazz = object.getClass();
 
@@ -94,6 +101,7 @@ public class DefaultParameterHandler implements ParameterHandler {
         }
         return null;
     }
+
     private static String capitalize(String name) {
         return name.substring(0, 1).toUpperCase(ENGLISH) + name.substring(1);
     }

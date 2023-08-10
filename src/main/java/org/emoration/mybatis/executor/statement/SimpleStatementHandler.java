@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import lombok.Getter;
 import org.emoration.mybatis.mapping.MappedStatement;
 import org.emoration.mybatis.utils.CommonUtils;
+import org.emoration.mybatis.utils.ognl.ExpressionEvaluator;
 
 
 /**
@@ -53,13 +54,14 @@ public class SimpleStatementHandler implements StatementHandler {
      * @throws SQLException
      */
     @Override
-    public PreparedStatement prepare(Connection paramConnection)
+    public PreparedStatement prepare(Connection paramConnection, Object parameter)
             throws SQLException {
         String originalSql = mappedStatement.getSql();
+        String parsedIfSql = parseIfSqlNode(originalSql, mappedStatement.getIfSqlNodeList(), parameter);
 
-        if (CommonUtils.isNotEmpty(originalSql)) {
+        if (CommonUtils.isNotEmpty(parsedIfSql)) {
             // 替换#{}，预处理，防止SQL注入
-            return paramConnection.prepareStatement(parseSymbol(originalSql));
+            return paramConnection.prepareStatement(parseSymbol(parsedIfSql));
         } else {
             throw new SQLException("original sql is null.");
         }
@@ -103,6 +105,22 @@ public class SimpleStatementHandler implements StatementHandler {
             paramNames.add(paramName);
         }
         return matcher.replaceAll("?");
+    }
+
+    /**
+     * 解析IfSqlNode，测试条件并拼接SQL
+     */
+    private String parseIfSqlNode(String originalSql, List<MappedStatement.IfSqlNode> ifSqlNodeList, Object parameter) {
+        StringBuilder originalSqlBuilder = new StringBuilder(originalSql);
+        for (MappedStatement.IfSqlNode ifSqlNode : ifSqlNodeList) {
+            String test = ifSqlNode.getTest();
+            String sqlSegment = ifSqlNode.getSql();
+            if (test != null && sqlSegment != null && ExpressionEvaluator.evaluateBoolean(test, parameter)) {
+                originalSqlBuilder.append(" ");
+                originalSqlBuilder.append(sqlSegment);
+            }
+        }
+        return originalSqlBuilder.toString();
     }
 
 }

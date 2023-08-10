@@ -54,8 +54,9 @@ public final class XmlUtil {
             String namespace = rootElement.attributeValue(Constant.XML_SELECT_NAMESPACE);
 
             List<MappedStatement> statements = new ArrayList<>();
-            for (Iterator iterator = rootElement.elementIterator(); iterator.hasNext(); ) {
-                Element element = (Element) iterator.next();
+//            for (Iterator iterator = rootElement.elementIterator(); iterator.hasNext(); ) {
+//                Element element = (Element) iterator.next();
+            for (Element element : rootElement.elements()) {
                 String eleName = element.getName();
 
                 MappedStatement statement = new MappedStatement();
@@ -82,8 +83,22 @@ public final class XmlUtil {
 
                 statement.setSqlId(sqlId);
                 statement.setNamespace(namespace);
-                statement.setSql(CommonUtils.stringTrim(element.getStringValue()));
+                statement.setSql(element.getTextTrim());
                 statements.add(statement);
+
+                // 解析子标签
+                for(Element element_ : element.elements()){
+                    String eleName_ = element_.getName();
+                    if (Constant.XML_IF_LABEL.equals(eleName_)) {
+                        MappedStatement.IfSqlNode ifSqlNode = new MappedStatement.IfSqlNode();
+                        String test = element_.attributeValue(Constant.XML_IF_TEST);
+                        ifSqlNode.setTest(test);
+                        ifSqlNode.setSql(element_.getTextTrim());
+                        statement.getIfSqlNodeList().add(ifSqlNode);
+                    } else {
+                        System.err.println("不支持此xml标签解析:" + eleName);
+                    }
+                }
 
                 System.out.println(statement);
                 configuration.addMappedStatement(sqlId, statement);

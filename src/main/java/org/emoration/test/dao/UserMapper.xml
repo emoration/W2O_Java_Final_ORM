@@ -1,21 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mapper namespace="org.emoration.test.dao.UserMapper">
 
-    <select id="getUser" resultType="org.emoration.test.bean.User">
+
+    <select id="selectUserById" resultType="org.emoration.test.bean.User">
         select * from user where id = #{id}
     </select>
 
-    <select id="getAll" resultType="org.emoration.test.bean.User">
+    <select id="selectUserByRawId" resultType="org.emoration.test.bean.User">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="selectSystem" resultType="org.emoration.test.bean.User">
+        select * from user where id = #{id}
+        <if test="id!=0">
+            and name = "system"
+        </if>
+    </select>
+
+    <select id="selectUserByAliasId" resultType="org.emoration.test.bean.User">
+        select * from user where id = #{alias_id}
+    </select>
+
+    <select id="selectUserByIdAndName" resultType="org.emoration.test.bean.User">
+        select * from user where id = #{id} and name = #{name}
+    </select>
+
+    <select id="selectAllUser" resultType="org.emoration.test.bean.User">
         select * from user
     </select>
 
-    <update id="updateUser">
+    <update id="updateUserNameById">
         update user set name = #{name} where id = #{id}
     </update>
-    <insert id="insertUser">
-        insert into user(name, id) values(#{name}, #{id})
-    </insert>
+
     <update id="updateUserByUser">
         update user set name = #{name} where id = #{id}
     </update>
+
+    <update id="updateUserByUserWithParameterType" parameterType="org.emoration.test.bean.User">
+        update user set name = #{name} where id = #{id}
+    </update>
+
+    <insert id="insertUserByUser">
+        insert into user(name, id) values(#{name}, #{id})
+    </insert>
+
+    <delete id="deleteUserById">
+        delete from user where id = #{id}
+    </delete>
 </mapper>
