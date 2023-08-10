@@ -5,12 +5,9 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import lombok.Data;
-import org.emoration.mybatis.executor.parameter.ParameterPair;
 import org.emoration.mybatis.mapping.MappedStatement;
 import org.emoration.mybatis.session.SqlSession;
 
@@ -111,5 +108,16 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
             }
         }
         return null;
+    }
+
+    /**
+     * @Author czh
+     * @Description 参数名称-值对
+     * @Date 2023/8/6
+     */
+    @Data
+    public static class ParameterPair {
+        private Object parameterValue;
+        private String parameterName;
     }
 }

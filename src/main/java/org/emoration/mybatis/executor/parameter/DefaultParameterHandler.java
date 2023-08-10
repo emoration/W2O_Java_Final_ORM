@@ -1,6 +1,8 @@
 package org.emoration.mybatis.executor.parameter;
 
 
+import org.emoration.mybatis.binding.MapperProxy;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -40,9 +42,9 @@ public class DefaultParameterHandler implements ParameterHandler {
 
             if (null != parameter) {
                 if (parameter.getClass().isArray()) {
-                    ParameterPair[] params = (ParameterPair[]) parameter;
+                    MapperProxy.ParameterPair[] params = (MapperProxy.ParameterPair[]) parameter;
                     Map<String, Object> paramMap = new HashMap<>();
-                    for (ParameterPair param : params) {
+                    for (MapperProxy.ParameterPair param : params) {
                         paramMap.put(param.getParameterName(), param.getParameterValue());
                     }
                     for (int i = 0; i < paramNames.size(); i++) {

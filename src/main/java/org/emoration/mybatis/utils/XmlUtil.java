@@ -61,7 +61,7 @@ public final class XmlUtil {
                 MappedStatement statement = new MappedStatement();
 
                 if (SqlType.SELECT.value().equals(eleName)) {
-                    String resultType = element.attributeValue(Constant.XML_SELECT_RESULTTYPE);
+                    String resultType = element.attributeValue(Constant.XML_SELECT_RESULT_TYPE);
                     statement.setResultType(resultType);
                     statement.setSqlCommandType(SqlType.SELECT);
                 } else if (SqlType.UPDATE.value().equals(eleName)) {
@@ -74,6 +74,8 @@ public final class XmlUtil {
                     System.err.println("不支持此xml标签解析:" + eleName);
                     statement.setSqlCommandType(SqlType.DEFAULT);
                 }
+                String parameterType = element.attributeValue(Constant.XML_SELECT_PARAMETER_TYPE);
+                statement.setParameterType(parameterType);
 
                 //设置SQL的唯一ID
                 String sqlId = namespace + "." + element.attributeValue(Constant.XML_ELEMENT_ID);

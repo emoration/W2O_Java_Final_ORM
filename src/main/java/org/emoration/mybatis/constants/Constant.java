@@ -38,7 +38,9 @@ public interface Constant {
 
     String XML_SELECT_NAMESPACE = "namespace";
 
-    String XML_SELECT_RESULTTYPE = "resultType";
+    String XML_SELECT_RESULT_TYPE = "resultType";
+
+    String XML_SELECT_PARAMETER_TYPE = "parameterType";
 
     /**
      * SQL类型枚举，如select、insert、update

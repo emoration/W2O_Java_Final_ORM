@@ -109,7 +109,6 @@ public class DefaultSqlSession implements SqlSession {
      */
     @Override
     public int insert(String statementId, Object parameter) {
-        //FIXME 待检查
         this.dirty = true;
         MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
         try {
@@ -130,7 +129,6 @@ public class DefaultSqlSession implements SqlSession {
      */
     @Override
     public int delete(String statementId, Object parameter) {
-        //FIXME 待检查
         this.dirty = true;
         MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
         try {
@@ -148,7 +146,6 @@ public class DefaultSqlSession implements SqlSession {
      */
     @Override
     public void commit(boolean force) {
-        //FIXME 待检查
         if ((this.dirty && this.autoCommit) || force) {
             try {
                 this.executor.commit();
@@ -172,7 +169,6 @@ public class DefaultSqlSession implements SqlSession {
      */
     @Override
     public void rollback(boolean force) {
-        //FIXME 待检查
         if ((this.dirty && this.autoCommit) || force) {
             try {
                 this.executor.rollback();
@@ -196,7 +192,6 @@ public class DefaultSqlSession implements SqlSession {
      */
     @Override
     public void close() {
-        //FIXME 待检查
         if(this.executor.isClosed()){
             return;
         }

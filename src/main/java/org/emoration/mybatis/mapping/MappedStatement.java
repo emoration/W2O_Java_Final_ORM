@@ -32,6 +32,11 @@ public final class MappedStatement {
     private String resultType;
 
     /**
+     * 参数类型
+     */
+    private String parameterType;
+
+    /**
      * sqlCommandType对应select/update/insert等
      */
     private SqlType sqlCommandType;
