@@ -4,46 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4da14c47-058a-4947-a091-6b7637b37ac4" name="Changes" comment="feat:增加了Zoo类方便测试，增加了一级缓存相关代码，增加了SQL执行输出方便测试缓存是否生效">
+    <list default="true" id="4da14c47-058a-4947-a091-6b7637b37ac4" name="Changes" comment="feat:优化了代码，增加了注释，完善了功能测试">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/annotations/Param.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/annotations/Param.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/binding/MapperProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/binding/MapperProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/binding/MapperProxyFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/binding/MapperProxyFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/binding/MapperRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/binding/MapperRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/cache/Cache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/cache/Cache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/cache/CacheKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/cache/CacheKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/cache/decorators/SerializedCache.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/cache/impl/PerpetualCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/cache/impl/PerpetualCache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/constants/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/constants/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/BaseExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/BaseExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/CachingExecutor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/Executor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/Executor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/SimpleExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/SimpleExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/parameter/DefaultParameterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/parameter/DefaultParameterHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/parameter/ParameterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/parameter/ParameterHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/resultset/DefaultResultSetHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/resultset/DefaultResultSetHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/resultset/ResultSetHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/resultset/ResultSetHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/statement/SimpleStatementHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/statement/SimpleStatementHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/statement/StatementHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/executor/statement/StatementHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/mapping/MappedStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/mapping/MappedStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/reflection/ArrayUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/reflection/ArrayUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/Configuration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/SqlSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/SqlSession.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/SqlSessionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/SqlSessionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/SqlSessionFactoryBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/SqlSessionFactoryBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/defaults/DefaultSqlSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/defaults/DefaultSqlSession.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/defaults/DefaultSqlSessionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/session/defaults/DefaultSqlSessionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/utils/CommonUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/utils/CommonUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/utils/XmlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/utils/XmlUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/utils/ognl/DefaultMemberAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/utils/ognl/DefaultMemberAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/utils/ognl/ExpressionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/mybatis/utils/ognl/ExpressionEvaluator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/test/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/test/TestMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/test/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/test/bean/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/ZooMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/ZooMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/ZooMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/emoration/test/dao/ZooMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/conf.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/conf.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +132,7 @@
       <workItem from="1691808249966" duration="366000" />
       <workItem from="1691808627110" duration="918000" />
       <workItem from="1692015277383" duration="2000" />
-      <workItem from="1692449551295" duration="27659000" />
+      <workItem from="1692449551295" duration="29233000" />
     </task>
     <task id="LOCAL-00001" summary="feat:增加了参数注解@Param">
       <option name="closed" value="true" />
@@ -211,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1692525245059</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat:优化了代码，增加了注释，完善了功能测试">
+      <option name="closed" value="true" />
+      <created>1692534891120</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1692534891120</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,18 +205,10 @@
     <MESSAGE value="fixed:优化部分结构" />
     <MESSAGE value="feat:优化部分代码，增加了动态sql" />
     <MESSAGE value="feat:增加了Zoo类方便测试，增加了一级缓存相关代码，增加了SQL执行输出方便测试缓存是否生效" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:增加了Zoo类方便测试，增加了一级缓存相关代码，增加了SQL执行输出方便测试缓存是否生效" />
+    <MESSAGE value="feat:优化了代码，增加了注释，完善了功能测试" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:优化了代码，增加了注释，完善了功能测试" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/emoration/test/TestMain.java</url>
-          <line>70</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="org.emoration.mybatis.cache.CacheKey" memberName="hashcode" />

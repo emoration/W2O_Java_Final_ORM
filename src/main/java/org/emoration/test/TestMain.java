@@ -69,6 +69,25 @@ public class TestMain {
         System.out.println(zooMapper.selectZooByName("cat") + "\n");
         System.out.println(zooMapper.selectZooByPrice(3.0) + "\n");
 
+        // 测一下事务
+        session.setAutoCommit(false);
+        // 回滚
+        System.out.println(userMapper.selectUserById("1") + "\n");
+        System.out.println(zooMapper.selectZooById(1) + "\n");
+        System.out.println(userMapper.updateUserNameById("1", "sss") + "\n");
+        System.out.println(zooMapper.deleteZooById(1) + "\n");
+        session.rollback();
+        System.out.println(userMapper.selectUserById("1") + "\n");
+        System.out.println(zooMapper.selectZooById(1) + "\n");
+        // 提交
+        System.out.println(userMapper.selectUserById("1") + "\n");
+        System.out.println(zooMapper.selectZooById(1) + "\n");
+        System.out.println(userMapper.updateUserNameById("1", "sss") + "\n");
+        System.out.println(zooMapper.deleteZooById(1) + "\n");
+        session.commit();
+        System.out.println(userMapper.selectUserById("1") + "\n"); // 更新后不适用缓存
+        System.out.println(zooMapper.selectZooById(1) + "\n");
+
     }
 
 }
