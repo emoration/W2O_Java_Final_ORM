@@ -25,7 +25,7 @@
         select * from user where id = #{id} and name = #{name}
     </select>
 
-    <select id="selectAllUser" resultType="org.emoration.test.bean.User">
+    <select id="selectAll" resultType="org.emoration.test.bean.User">
         select * from user
     </select>
 
@@ -33,11 +33,11 @@
         update user set name = #{name} where id = #{id}
     </update>
 
-    <update id="updateUserByUser">
+    <update id="updateUserNameByUser">
         update user set name = #{name} where id = #{id}
     </update>
 
-    <update id="updateUserByUserWithParameterType" parameterType="org.emoration.test.bean.User">
+    <update id="updateUserNameByUserWithParameterType" parameterType="org.emoration.test.bean.User">
         update user set name = #{name} where id = #{id}
     </update>
 

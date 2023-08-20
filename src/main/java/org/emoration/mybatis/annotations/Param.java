@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * @Author czh
- * @Description 参数注解
+ * @Description 参数注解, 用于指定参数名映射
  * @Date 2023/8/6
  */
 @Documented

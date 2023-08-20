@@ -13,10 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    /** the id */
+    /**
+     * the id
+     */
     private String id;
 
-    /** the name */
+    /**
+     * the name
+     */
     private String name;
 
 }

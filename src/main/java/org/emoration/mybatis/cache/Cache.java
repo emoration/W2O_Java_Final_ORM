@@ -3,7 +3,7 @@ package org.emoration.mybatis.cache;
 
 /**
  * @Author czh
- * @Description TODO
+ * @Description 缓存的接口
  * @Date 2023/8/19
  */
 public interface Cache {

@@ -1,6 +1,10 @@
 package org.emoration.mybatis.executor.statement;
 
 
+import org.emoration.mybatis.mapping.MappedStatement;
+import org.emoration.mybatis.utils.CommonUtils;
+import org.emoration.mybatis.utils.ognl.ExpressionEvaluator;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,11 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import lombok.Getter;
-import org.emoration.mybatis.mapping.MappedStatement;
-import org.emoration.mybatis.utils.CommonUtils;
-import org.emoration.mybatis.utils.ognl.ExpressionEvaluator;
 
 
 /**
@@ -25,21 +24,24 @@ public class SimpleStatementHandler implements StatementHandler {
     /**
      * #{}正则匹配
      */
-    private static Pattern param_pattern = Pattern.compile("#\\{([^\\{\\}]*)\\}");
+    private static final Pattern param_pattern = Pattern.compile("#\\{([^{}]*)\\}");
 
-    private MappedStatement mappedStatement;
+    private final MappedStatement mappedStatement;
 
     @Override
     public List<String> getParamNames() {
         return paramNames;
     }
 
-    private List<String> paramNames;
+    /**
+     * 存储把{xxx}替换成?后原来的参数名，方便后期匹配
+     */
+    private final List<String> paramNames;
 
     /**
      * 默认构造方法
      *
-     * @param mappedStatement
+     * @param mappedStatement mappedStatement
      */
     public SimpleStatementHandler(MappedStatement mappedStatement) {
         this.paramNames = new ArrayList<>();
@@ -49,19 +51,19 @@ public class SimpleStatementHandler implements StatementHandler {
     /**
      * prepare
      *
-     * @param paramConnection
-     * @return
-     * @throws SQLException
+     * @param connection sql的连接
+     * @return 生成的PreparedStatement
+     * @throws SQLException SQLException
      */
     @Override
-    public PreparedStatement prepare(Connection paramConnection, Object parameter)
+    public PreparedStatement prepare(Connection connection, Object parameter)
             throws SQLException {
         String originalSql = mappedStatement.getSql();
         String parsedIfSql = parseIfSqlNode(originalSql, mappedStatement.getIfSqlNodeList(), parameter);
 
         if (CommonUtils.isNotEmpty(parsedIfSql)) {
             // 替换#{}，预处理，防止SQL注入
-            return paramConnection.prepareStatement(parseSymbol(parsedIfSql));
+            return connection.prepareStatement(parseSymbol(parsedIfSql));
         } else {
             throw new SQLException("original sql is null.");
         }
@@ -70,9 +72,9 @@ public class SimpleStatementHandler implements StatementHandler {
     /**
      * query
      *
-     * @param preparedStatement
-     * @return
-     * @throws SQLException
+     * @param preparedStatement preparedStatement
+     * @return preparedStatement执行的结果
+     * @throws SQLException SQLException
      */
     @Override
     public ResultSet query(PreparedStatement preparedStatement)
@@ -83,8 +85,9 @@ public class SimpleStatementHandler implements StatementHandler {
     /**
      * update
      *
-     * @param preparedStatement
-     * @throws SQLException
+     * @param preparedStatement preparedStatement
+     * @return preparedStatement执行结果
+     * @throws SQLException SQLException
      */
     @Override
     public int update(PreparedStatement preparedStatement) throws SQLException {
@@ -94,8 +97,8 @@ public class SimpleStatementHandler implements StatementHandler {
     /**
      * 将SQL语句中的#{}替换为？，源码中是在SqlSourceBuilder类中解析的
      *
-     * @param source
-     * @return
+     * @param source 原来的sql
+     * @return 替换成?的sql
      */
     private String parseSymbol(String source) {
         source = source.trim();

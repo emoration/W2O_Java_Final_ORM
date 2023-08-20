@@ -14,35 +14,33 @@ public interface SqlSession {
     /**
      * 设置是否自动提交事务
      *
-     * @param autoCommit
+     * @param autoCommit 是否自动提交
      */
     void setAutoCommit(boolean autoCommit);
 
     /**
      * 查询带条记录
      *
-     * @param statementId
-     * @param parameter
-     * @return
-     * @see
+     * @param statementId statement的id
+     * @param parameter   参数
+     * @return 结果
      */
     <T> T selectOne(String statementId, Object parameter);
 
     /**
      * 查询多条记录
      *
-     * @param statementId
-     * @param parameter
-     * @return
-     * @see
+     * @param statementId statement的id
+     * @param parameter   参数
+     * @return 结果
      */
     <E> List<E> selectList(String statementId, Object parameter);
 
     /**
      * update
      *
-     * @param statementId
-     * @param parameter
+     * @param statementId statement的id
+     * @param parameter   参数
      */
     int update(String statementId, Object parameter);
 
@@ -50,16 +48,16 @@ public interface SqlSession {
     /**
      * insert
      *
-     * @param statementId
-     * @param parameter
+     * @param statementId statement的id
+     * @param parameter   参数
      */
     int insert(String statementId, Object parameter);
 
     /**
      * delete
      *
-     * @param statementId
-     * @param parameter
+     * @param statementId statement的id
+     * @param parameter   参数
      */
     int delete(String statementId, Object parameter);
 
@@ -91,17 +89,15 @@ public interface SqlSession {
     /**
      * 获取mapper
      *
-     * @param paramClass
-     * @return
-     * @see
+     * @param paramClass 类型
+     * @return Mapper
      */
     <T> T getMapper(Class<T> paramClass);
 
     /**
      * 获取配置类
      *
-     * @return
-     * @see
+     * @return 配置
      */
     Configuration getConfiguration();
 }

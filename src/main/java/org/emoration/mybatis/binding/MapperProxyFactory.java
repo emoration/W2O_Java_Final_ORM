@@ -18,7 +18,7 @@ public class MapperProxyFactory<T> {
     /**
      * 初始化方法
      *
-     * @param mapperInterface
+     * @param mapperInterface mapper接口
      */
     public MapperProxyFactory(Class<T> mapperInterface) {
         this.mapperInterface = mapperInterface;
@@ -27,21 +27,21 @@ public class MapperProxyFactory<T> {
     /**
      * 根据sqlSession创建一个代理
      *
-     * @param sqlSession
-     * @return
-     * @see
+     * @param sqlSession sqlSession
+     * @return 代理T
+     * @see MapperProxyFactory#newInstance(MapperProxy)
      */
     public T newInstance(SqlSession sqlSession) {
-        MapperProxy<T> mapperProxy = new MapperProxy<T>(sqlSession, this.mapperInterface);
+        MapperProxy<T> mapperProxy = new MapperProxy<>(sqlSession, this.mapperInterface);
         return newInstance(mapperProxy);
     }
 
     /**
      * 根据mapper代理返回实例
      *
-     * @param mapperProxy
-     * @return
-     * @see
+     * @param mapperProxy mapper代理
+     * @return 代理T
+     * @see Proxy#newProxyInstance(ClassLoader, Class[], java.lang.reflect.InvocationHandler)
      */
     @SuppressWarnings("unchecked")
     protected T newInstance(MapperProxy<T> mapperProxy) {

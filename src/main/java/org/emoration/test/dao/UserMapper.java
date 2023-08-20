@@ -39,9 +39,9 @@ public interface UserMapper {
     User selectUserByIdAndName(@Param("id") String id, @Param("name") String name);
 
     /**
-     * 查询所有用户
+     * 查询所有用户(顺便测试和其他Mapper重名的方法)
      */
-    List<User> selectAllUser();
+    List<User> selectAll();
 
     /**
      * 根据id更新用户name
@@ -51,12 +51,12 @@ public interface UserMapper {
     /**
      * 根据id更新用户name（使用自动实体类映射）
      */
-    int updateUserByUser(User user);
+    int updateUserNameByUser(User user);
 
     /**
      * 根据id更新用户name（使用实体类映射，指定实体类参数类型）
      */
-    int updateUserByUserWithParameterType(User user);
+    int updateUserNameByUserWithParameterType(User user);
 
     /**
      * 插入用户（使用自动实体类映射）

@@ -17,9 +17,8 @@ public class SqlSessionFactoryBuilder {
     /**
      * build
      *
-     * @param fileName
-     * @return
-     * @see
+     * @param fileName 文件名
+     * @return SqlSessionFactory
      */
     public SqlSessionFactory build(String fileName) {
 
@@ -31,16 +30,15 @@ public class SqlSessionFactoryBuilder {
     /**
      * build
      *
-     * @param inputStream
-     * @return
-     * @see
+     * @param inputStream 输入流
+     * @return SqlSessionFactory
      */
     public SqlSessionFactory build(InputStream inputStream) {
         try {
             Configuration.PROPS.load(inputStream);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return new DefaultSqlSessionFactory(new Configuration());
     }

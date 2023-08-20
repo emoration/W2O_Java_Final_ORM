@@ -10,8 +10,7 @@ public interface SqlSessionFactory {
     /**
      * 开启数据库会话
      *
-     * @return
-     * @see
+     * @return SqlSession
      */
     SqlSession openSession();
 

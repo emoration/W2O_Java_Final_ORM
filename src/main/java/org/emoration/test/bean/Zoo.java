@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Author czh
- * @Description TODO
+ * @Description 测试用的实体类
  * @Date 2023/8/11
  */
 @Data

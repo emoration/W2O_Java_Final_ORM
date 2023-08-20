@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mapper namespace="org.emoration.test.dao.ZooMapper">
+    <select id="selectALl" resultType="org.emoration.test.bean.Zoo">
+        select * from zoo
+    </select>
     <select id="selectZooById" resultType="org.emoration.test.bean.Zoo">
         select * from zoo where id = #{id}
     </select>
     <select id="selectZooByName" resultType="org.emoration.test.bean.Zoo">
         select * from zoo where name = #{name}
     </select>
-    <insert id="insertZooByZoo" parameterType="org.emoration.test.bean.Zoo">
+    <select id="selectZooByPrice" resultType="org.emoration.test.bean.Zoo">
+        select * from zoo where price = #{price}
+    </select>
+    <insert id="insertZooByZoo">
         insert into zoo(name, id, price) values(#{name}, #{id}, #{price})
     </insert>
-    <update id="updateZooById" parameterType="org.emoration.test.bean.Zoo">
-        update zoo set name = #{name} and price = #{price} where id = #{id}
+    <update id="updateZooByZoo">
+        update zoo set name = #{name}, price = #{price} where id = #{id}
+    </update>
+    <update id="updateZooByZooByParam">
+        update zoo set name = #{name}, price = #{price} where id = #{id}
+    </update>
+    <update id="updateZooByZooWithParameterType" parameterType="org.emoration.test.bean.Zoo">
+        update zoo set name = #{name}, price = #{price} where id = #{id}
     </update>
     <delete id="deleteZooById">
         delete from zoo where id = #{id}

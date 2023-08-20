@@ -3,7 +3,6 @@ package org.emoration.mybatis.executor.parameter;
 
 import org.emoration.mybatis.binding.MapperProxy;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
@@ -22,8 +21,8 @@ import static java.util.Locale.ENGLISH;
  */
 public class DefaultParameterHandler implements ParameterHandler {
 
-    private Object parameter;
-    private List<String> paramNames;
+    private final Object parameter;
+    private final List<String> paramNames;
 
     public DefaultParameterHandler(Object parameter, List<String> paramNames) {
         this.parameter = parameter;
@@ -33,7 +32,7 @@ public class DefaultParameterHandler implements ParameterHandler {
     /**
      * 将SQL参数设置到PreparedStatement中
      *
-     * @param ps
+     * @param ps PreparedStatement
      */
     @Override
     public void setParameters(PreparedStatement ps) {
@@ -56,52 +55,53 @@ public class DefaultParameterHandler implements ParameterHandler {
                         } else if (params.length == 1) {
                             paramValue = getFieldValue(params[0].getParameterValue(), paramName);
                             if (paramValue != null) {
-                                System.out.println("[Warning]参数未找到，尝试将参数视为对象，成功获得字段：" + paramName + "=" + paramValue);
+                                System.out.println("[Warning]SQL语句中的{" + paramName + "}未找到，尝试调用参数" + params[0].getParameterName() + "的get方法，成功: " + paramName + "=" + paramValue);
                             } else {
                                 paramValue = params[0].getParameterValue();
-                                System.out.println("[Warning]参数未找到，尝试将参数直接赋值：" + paramName + "=" + paramValue);
+                                System.out.println("[Warning]SQL语句中的{" + paramName + "}未找到，尝试使用参数" + params[0].getParameterName() + "直接赋值，成功: " + paramName + "=" + paramValue);
                             }
                         }
                         if (paramValue == null) {
-                            throw new SQLException("SQL语句中的参数" + paramName + "未找到");
+                            throw new SQLException("SQL语句中的{" + paramName + "}未找到");
                         }
                         ps.setObject(i + 1, paramValue);
                     }
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
-    public static String getFieldValue(Object object, String fieldName) {
+    /**
+     * 尝试通过get方法获得参数
+     *
+     * @param object    操作对象
+     * @param fieldName 字段名
+     * @return 值或者null
+     */
+    public static Object getFieldValue(Object object, String fieldName) {
         Class<?> clazz = object.getClass();
 
         try {
-            // Try to get the value through the getter method (if available)
+            // 尝试通过get方法获取
             Method getter = clazz.getMethod("get" + capitalize(fieldName));
             Object value = getter.invoke(object);
             if (value != null) {
-                return value.toString();
+                return value;
             }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignored) {
-            // Ignore exceptions
         }
 
-        try {
-            // Try to get the value directly from the field
-            Field field = clazz.getDeclaredField(fieldName);
-            field.setAccessible(true);
-            Object value = field.get(object);
-            if (value != null) {
-                return value.toString();
-            }
-        } catch (NoSuchFieldException | IllegalAccessException ignored) {
-            // Ignore exceptions
-        }
         return null;
     }
 
+    /**
+     * 获取get方法名
+     *
+     * @param name 字段名
+     * @return 对应的get方法名
+     */
     private static String capitalize(String name) {
         return name.substring(0, 1).toUpperCase(ENGLISH) + name.substring(1);
     }

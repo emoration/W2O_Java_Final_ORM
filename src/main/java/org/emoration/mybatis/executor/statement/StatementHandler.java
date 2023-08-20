@@ -18,28 +18,24 @@ public interface StatementHandler {
     /**
      * SQL预处理
      *
-     * @param paramConnection
-     * @return
-     * @throws SQLException
-     * @see
+     * @param connection sql的连接
+     * @return PreparedStatement
      */
-    PreparedStatement prepare(Connection paramConnection, Object parameter) throws SQLException;
+    PreparedStatement prepare(Connection connection, Object parameter) throws SQLException;
 
     /**
      * 查询数据库
      *
-     * @param preparedStatement
-     * @return
-     * @throws SQLException
-     * @see
+     * @param preparedStatement preparedStatement
+     * @return preparedStatement执行结果
      */
     ResultSet query(PreparedStatement preparedStatement) throws SQLException;
 
     /**
      * update
      *
-     * @param preparedStatement
-     * @throws SQLException
+     * @param preparedStatement preparedStatement
+     * @return preparedStatement执行结果
      */
     int update(PreparedStatement preparedStatement) throws SQLException;
 

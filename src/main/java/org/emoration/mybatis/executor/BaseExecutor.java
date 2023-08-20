@@ -10,14 +10,11 @@ import org.emoration.mybatis.session.Configuration;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * @Author czh
- * @Description TODO
+ * @Description BaseExecutor，仿照mybatis
  * @Date 2023/8/20
  */
 
@@ -57,7 +54,9 @@ public abstract class BaseExecutor implements Executor {
             return this.doUpdate(ms, parameter);
         }
     }
+
     static CacheKey keyTest = null;
+
     @Override
     public <E> List<E> query(MappedStatement ms, Object parameter) throws SQLException {
         CacheKey key = this.createCacheKey(ms, parameter);
@@ -66,12 +65,13 @@ public abstract class BaseExecutor implements Executor {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <E> List<E> query(MappedStatement ms, Object parameter, CacheKey key) throws SQLException {
         if (this.closed) {
             throw new RuntimeException("Executor was closed.");
         } else {
-            List list;
-            list = (List) this.localCache.getObject(key);
+            List<E> list;
+            list = (List<E>) this.localCache.getObject(key);
             if (list == null) {
                 list = this.doQuery(ms, parameter);
                 this.localCache.putObject(key, list);
@@ -94,18 +94,7 @@ public abstract class BaseExecutor implements Executor {
     }
 
     /**
-     * 检查是否在缓存中
-     * @param ms
-     * @param key
-     * @return
-     */
-    public boolean isCached(MappedStatement ms, CacheKey key) {
-        return this.localCache.getObject(key) != null;
-    }
-
-    /**
      * 提交
-     * @throws SQLException
      */
     @Override
     public void commit() throws SQLException {
@@ -118,7 +107,6 @@ public abstract class BaseExecutor implements Executor {
 
     /**
      * 回滚
-     * @throws SQLException
      */
     @Override
     public void rollback() throws SQLException {
@@ -136,7 +124,6 @@ public abstract class BaseExecutor implements Executor {
         if (!this.closed) {
             this.localCache.clear();
         }
-
     }
 
     protected abstract int doUpdate(MappedStatement var1, Object var2) throws SQLException;
@@ -146,8 +133,7 @@ public abstract class BaseExecutor implements Executor {
     /**
      * get数据库连接
      *
-     * @return
-     * @throws SQLException
+     * @return 数据库连接
      */
     public Connection getConnection() throws SQLException {
         if (null != connection) {
@@ -159,8 +145,6 @@ public abstract class BaseExecutor implements Executor {
 
     /**
      * 静态初始化数据库连接
-     *
-     * @return
      */
     protected Connection initConnect() {
 
@@ -168,13 +152,13 @@ public abstract class BaseExecutor implements Executor {
         String url = Configuration.getProperty(Constant.DB_URL_CONF);
         String username = Configuration.getProperty(Constant.DB_USERNAME_CONF);
         String password = Configuration.getProperty(Constant.DB_PASSWORD);
-        Connection connection = null;
+        Connection connection;
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection(url, username, password);
             System.out.println("数据库连接成功");
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return connection;
     }
@@ -182,8 +166,7 @@ public abstract class BaseExecutor implements Executor {
     /**
      * 设置是否自动提交事务
      *
-     * @param autoCommit
-     * @throws SQLException
+     * @param autoCommit 是否自动提交
      */
     @Override
     public void setAutoCommit(boolean autoCommit) throws SQLException {

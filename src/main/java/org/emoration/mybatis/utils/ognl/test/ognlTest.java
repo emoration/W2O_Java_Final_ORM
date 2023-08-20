@@ -8,11 +8,11 @@ import org.emoration.mybatis.utils.ognl.test.ognlTestClass.BDemo;
 
 /**
  * @Author czh
- * @Description TODO
+ * @Description 测试用的类
  * @Date 2023/8/10
  */
 public class ognlTest {
-    public static void main(String[] args) throws OgnlException {
+    public static void main(String[] args) {
         Object ans = ExpressionEvaluator.evaluateBoolean("a.age == 1 && b.getAge() == 1",
 //        Object ans = ExpressionEvaluator.evaluateBoolean("a.getAge() == 1",
                 new MapperProxy.ParameterPair[]{

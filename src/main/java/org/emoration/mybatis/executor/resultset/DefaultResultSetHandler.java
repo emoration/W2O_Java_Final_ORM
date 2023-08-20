@@ -19,7 +19,7 @@ public class DefaultResultSetHandler implements ResultSetHandler {
     private final MappedStatement mappedStatement;
 
     /**
-     * @param mappedStatement
+     * @param mappedStatement mappedStatement
      */
     public DefaultResultSetHandler(MappedStatement mappedStatement) {
         this.mappedStatement = mappedStatement;
@@ -28,8 +28,8 @@ public class DefaultResultSetHandler implements ResultSetHandler {
     /**
      * 处理查询结果，通过反射设置到返回的实体类
      *
-     * @param resultSet
-     * @return
+     * @param resultSet 结果集
+     * @return 处理后的结果集的列表
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -69,9 +69,8 @@ public class DefaultResultSetHandler implements ResultSetHandler {
 
             return result;
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
 }

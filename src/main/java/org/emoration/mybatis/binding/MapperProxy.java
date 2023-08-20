@@ -1,6 +1,11 @@
 package org.emoration.mybatis.binding;
 
 
+import lombok.Data;
+import org.emoration.mybatis.mapping.MappedStatement;
+import org.emoration.mybatis.session.SqlSession;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -9,13 +14,6 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.emoration.mybatis.mapping.MappedStatement;
-import org.emoration.mybatis.session.SqlSession;
 
 
 /**
@@ -25,6 +23,7 @@ import org.emoration.mybatis.session.SqlSession;
  */
 public class MapperProxy<T> implements InvocationHandler, Serializable {
 
+    @Serial
     private static final long serialVersionUID = -7861758496991319661L;
 
     private final SqlSession sqlSession;
@@ -34,8 +33,8 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
     /**
      * 构造方法
      *
-     * @param sqlSession
-     * @param mapperInterface
+     * @param sqlSession      sqlSession
+     * @param mapperInterface mapper接口类
      */
     public MapperProxy(SqlSession sqlSession, Class<T> mapperInterface) {
 
@@ -46,10 +45,10 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
     /**
      * 真正的执行方法
      *
-     * @param proxy
-     * @param method
-     * @param args
-     * @return
+     * @param proxy  代理对象
+     * @param method 方法
+     * @param args   参数
+     * @return 执行结果
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
@@ -59,19 +58,16 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
             }
             return this.execute(method, args);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
-
     }
 
     /**
      * 根据SQL指令执行对应操作
      *
-     * @param method
-     * @param args
-     * @return
+     * @param method 方法
+     * @param args   参数
+     * @return 执行结果
      */
     private Object execute(Method method, Object[] args) {
         String statementId = this.mapperInterface.getName() + "." + method.getName();
@@ -91,7 +87,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            Object param = null;
+            Object param;
             try {
                 param = clazz.cast(args[0]);
             } catch (ClassCastException e) {
@@ -101,7 +97,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
             List<ParameterPair> parameterPairList = new ArrayList<>();
             for (Method paramMethod : paramMethods) {
                 if (paramMethod.getName().startsWith("get") && !paramMethod.getName().equals("getClass")) {
-                    Object fieldValue = null;
+                    Object fieldValue;
                     try {
                         fieldValue = paramMethod.invoke(param);
                     } catch (IllegalAccessException | InvocationTargetException e) {
@@ -133,7 +129,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
 
         switch (ms.getSqlCommandType()) {
             case SELECT -> {
-                Object result = null;
+                Object result;
                 Class<?> returnType = method.getReturnType();
                 // 如果返回的是list，应该调用查询多个结果的方法，否则只要查单条记录
                 if (Collection.class.isAssignableFrom(returnType)) {
@@ -153,11 +149,8 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
             case DELETE -> {
                 return sqlSession.delete(statementId, args);
             }
-            default -> {
-                //TODO 其他方法待实现
-            }
+            default -> throw new RuntimeException("未定义的方法:" + ms.getSqlCommandType());
         }
-        return null;
     }
 
     /**

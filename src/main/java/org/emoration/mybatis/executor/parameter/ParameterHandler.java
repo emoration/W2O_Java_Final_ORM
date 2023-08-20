@@ -14,8 +14,7 @@ public interface ParameterHandler {
     /**
      * 设置参数
      *
-     * @param paramPreparedStatement
-     * @see
+     * @param paramPreparedStatement 给PreparedStatement设置参数
      */
     void setParameters(PreparedStatement paramPreparedStatement);
 }

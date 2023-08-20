@@ -1,7 +1,6 @@
 package org.emoration.mybatis.mapping;
 
 import lombok.Data;
-import org.emoration.mybatis.cache.Cache;
 import org.emoration.mybatis.constants.Constant.SqlType;
 
 import java.util.ArrayList;

@@ -1,19 +1,15 @@
 package org.emoration.mybatis.utils;
 
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-
 import org.emoration.mybatis.constants.Constant;
 import org.emoration.mybatis.constants.Constant.SqlType;
 import org.emoration.mybatis.mapping.MappedStatement;
 import org.emoration.mybatis.session.Configuration;
+
+import java.io.File;
 
 
 /**
@@ -26,11 +22,9 @@ public final class XmlUtil {
     /**
      * readMapperXml
      *
-     * @param fileName
-     * @param configuration
-     * @see
+     * @param fileName      文件名
+     * @param configuration 配置
      */
-    @SuppressWarnings("rawtypes")
     public static void readMapperXml(File fileName, Configuration configuration) {
 
         try {
@@ -53,7 +47,7 @@ public final class XmlUtil {
 
             String namespace = rootElement.attributeValue(Constant.XML_SELECT_NAMESPACE);
 
-            List<MappedStatement> statements = new ArrayList<>();
+//            List<MappedStatement> statements = new ArrayList<>();
 //            for (Iterator iterator = rootElement.elementIterator(); iterator.hasNext(); ) {
 //                Element element = (Element) iterator.next();
             for (Element element : rootElement.elements()) {
@@ -84,10 +78,10 @@ public final class XmlUtil {
                 statement.setSqlId(sqlId);
                 statement.setNamespace(namespace);
                 statement.setSql(element.getTextTrim());
-                statements.add(statement);
+//                statements.add(statement);
 
                 // 解析子标签
-                for(Element element_ : element.elements()){
+                for (Element element_ : element.elements()) {
                     String eleName_ = element_.getName();
                     if (Constant.XML_IF_LABEL.equals(eleName_)) {
                         MappedStatement.IfSqlNode ifSqlNode = new MappedStatement.IfSqlNode();
@@ -108,7 +102,7 @@ public final class XmlUtil {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
     }

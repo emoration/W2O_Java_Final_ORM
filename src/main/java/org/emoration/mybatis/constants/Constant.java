@@ -3,7 +3,7 @@ package org.emoration.mybatis.constants;
 
 /**
  * @Author czh
- * @Description 常量
+ * @Description 一些常量
  * @Date 2023/8/4
  */
 public interface Constant {
@@ -25,7 +25,7 @@ public interface Constant {
 
     String DB_PASSWORD = "db.password";
 
-    /************ mapper xml  ****************/
+    //************ mapper xml  ****************/
 
     /**
      * mapper文件后缀
@@ -45,19 +45,20 @@ public interface Constant {
     String XML_IF_LABEL = "if";
 
     String XML_IF_TEST = "test";
+
     /**
      * SQL类型枚举，如select、insert、update
      */
-    public enum SqlType {
+    enum SqlType {
         SELECT("select"),
         INSERT("insert"),
         UPDATE("update"),
         DELETE("delete"),
         DEFAULT("default");
 
-        private String value;
+        private final String value;
 
-        private SqlType(String value) {
+        SqlType(String value) {
             this.value = value;
         }
 

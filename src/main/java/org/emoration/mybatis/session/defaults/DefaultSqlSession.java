@@ -39,7 +39,7 @@ public class DefaultSqlSession implements SqlSession {
     /**
      * 默认构造方法
      *
-     * @param configuration
+     * @param configuration 配置
      */
     public DefaultSqlSession(Configuration configuration) {
         this.configuration = configuration;
@@ -49,16 +49,16 @@ public class DefaultSqlSession implements SqlSession {
     /**
      * 查询带条记录
      *
-     * @param statementId
-     * @return
+     * @param statementId statement的id
+     * @return 结果
      */
     @Override
     public <T> T selectOne(String statementId, Object parameter) {
-        List<T> results = this.<T>selectList(statementId, parameter);
+        List<T> results = this.selectList(statementId, parameter);
         if (results == null || results.isEmpty()) {
             return null;
         }
-        if(results.size() > 1) {
+        if (results.size() > 1) {
             System.err.println(results);
             throw new RuntimeException("查询结果不唯一");
         }
@@ -70,13 +70,13 @@ public class DefaultSqlSession implements SqlSession {
      *
      * @param statementId ID为mapper类全名+方法名
      * @param parameter   参数列表
-     * @return
+     * @return 结果
      */
     @Override
     public <E> List<E> selectList(String statementId, Object parameter) {
         MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
         try {
-            return this.executor.<E>query(mappedStatement, parameter);
+            return this.executor.query(mappedStatement, parameter);
         } catch (SQLException e) {
             rollback();
             close();
@@ -88,8 +88,8 @@ public class DefaultSqlSession implements SqlSession {
     /**
      * 更新
      *
-     * @param statementId
-     * @param parameter
+     * @param statementId statement的id
+     * @param parameter   参数
      */
     @Override
     public int update(String statementId, Object parameter) {
@@ -108,8 +108,8 @@ public class DefaultSqlSession implements SqlSession {
     /**
      * 插入
      *
-     * @param statementId
-     * @param parameter
+     * @param statementId statement的id
+     * @param parameter   参数
      */
     @Override
     public int insert(String statementId, Object parameter) {
@@ -128,8 +128,8 @@ public class DefaultSqlSession implements SqlSession {
     /**
      * 删除
      *
-     * @param statementId
-     * @param parameter
+     * @param statementId statement的id
+     * @param parameter   参数
      */
     @Override
     public int delete(String statementId, Object parameter) {
@@ -210,18 +210,18 @@ public class DefaultSqlSession implements SqlSession {
     /**
      * 获取Mapper
      *
-     * @param type
-     * @return
+     * @param type Mapper类型
+     * @return 对应的Mapper
      */
     @Override
     public <T> T getMapper(Class<T> type) {
-        return configuration.<T>getMapper(type, this);
+        return configuration.getMapper(type, this);
     }
 
     /**
      * getConfiguration
      *
-     * @return
+     * @return 配置
      */
     @Override
     public Configuration getConfiguration() {

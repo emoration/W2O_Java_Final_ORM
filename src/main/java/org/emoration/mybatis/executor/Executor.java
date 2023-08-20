@@ -18,29 +18,27 @@ public interface Executor {
     /**
      * 查询数据库
      *
-     * @param ms
-     * @param parameter
-     * @return
-     * @see
+     * @param ms        MappedStatement
+     * @param parameter 参数
+     * @return 结果
      */
     <E> List<E> query(MappedStatement ms, Object parameter) throws SQLException;
 
     /**
      * 查询数据库, 带缓存key
      *
-     * @param ms
-     * @param parameter
-     * @param key
-     * @return
-     * @see
+     * @param ms        MappedStatement
+     * @param parameter 参数
+     * @param key       CacheKey
+     * @return 结果
      */
     <E> List<E> query(MappedStatement ms, Object parameter, CacheKey key) throws SQLException;
 
     /**
      * 更新操作
      *
-     * @param ms
-     * @param parameter
+     * @param ms        MappedStatement
+     * @param parameter 参数
      */
     int update(MappedStatement ms, Object parameter) throws SQLException;
 
@@ -52,8 +50,7 @@ public interface Executor {
     /**
      * 设置是否自动提交事务
      *
-     * @param autoCommit
-     * @throws SQLException
+     * @param autoCommit 是否自动提交
      */
     void setAutoCommit(boolean autoCommit) throws SQLException;
 
@@ -74,9 +71,10 @@ public interface Executor {
 
     /**
      * 生成缓存key
-     * @param ms
-     * @param parameter
-     * @return
+     *
+     * @param ms        MappedStatement
+     * @param parameter 参数
+     * @return CacheKey
      */
     CacheKey createCacheKey(MappedStatement ms, Object parameter);
 }

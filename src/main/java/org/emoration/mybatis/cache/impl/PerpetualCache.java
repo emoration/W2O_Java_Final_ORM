@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * @Author czh
- * @Description 简单的Cache
+ * @Description 仿照mybatis的PerpetualCache，内部使用HashMap实现缓存
  * @Date 2023/8/19
  */
 public class PerpetualCache implements Cache {

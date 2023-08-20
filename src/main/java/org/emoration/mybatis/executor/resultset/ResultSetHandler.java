@@ -15,9 +15,8 @@ public interface ResultSetHandler {
     /**
      * 处理查询结果
      *
-     * @param resultSet
-     * @return
-     * @see
+     * @param resultSet 结果集
+     * @return 处理后的列表
      */
     <E> List<E> handleResultSets(ResultSet resultSet);
 

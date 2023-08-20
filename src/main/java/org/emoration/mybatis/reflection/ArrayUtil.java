@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * @Author czh
- * @Description TODO
+ * @Description 仿照mybatis的ArrayUtil
  * @Date 2023/8/20
  */
 
@@ -22,21 +22,21 @@ public class ArrayUtil {
             } else {
                 Class<?> componentType = clazz.getComponentType();
                 if (Long.TYPE.equals(componentType)) {
-                    return Arrays.hashCode((long[])((long[])obj));
+                    return Arrays.hashCode((long[]) obj);
                 } else if (Integer.TYPE.equals(componentType)) {
-                    return Arrays.hashCode((int[])((int[])obj));
+                    return Arrays.hashCode((int[]) obj);
                 } else if (Short.TYPE.equals(componentType)) {
-                    return Arrays.hashCode((short[])((short[])obj));
+                    return Arrays.hashCode((short[]) obj);
                 } else if (Character.TYPE.equals(componentType)) {
-                    return Arrays.hashCode((char[])((char[])obj));
+                    return Arrays.hashCode((char[]) obj);
                 } else if (Byte.TYPE.equals(componentType)) {
-                    return Arrays.hashCode((byte[])((byte[])obj));
+                    return Arrays.hashCode((byte[]) obj);
                 } else if (Boolean.TYPE.equals(componentType)) {
-                    return Arrays.hashCode((boolean[])((boolean[])obj));
+                    return Arrays.hashCode((boolean[]) obj);
                 } else if (Float.TYPE.equals(componentType)) {
-                    return Arrays.hashCode((float[])((float[])obj));
+                    return Arrays.hashCode((float[]) obj);
                 } else {
-                    return Double.TYPE.equals(componentType) ? Arrays.hashCode((double[])((double[])obj)) : Arrays.hashCode((Object[])((Object[])obj));
+                    return Double.TYPE.equals(componentType) ? Arrays.hashCode((double[]) obj) : Arrays.hashCode((Object[]) obj);
                 }
             }
         }
@@ -56,21 +56,21 @@ public class ArrayUtil {
             } else {
                 Class<?> componentType = clazz.getComponentType();
                 if (Long.TYPE.equals(componentType)) {
-                    return Arrays.equals((long[])((long[])thisObj), (long[])((long[])thatObj));
+                    return Arrays.equals((long[]) thisObj, (long[]) thatObj);
                 } else if (Integer.TYPE.equals(componentType)) {
-                    return Arrays.equals((int[])((int[])thisObj), (int[])((int[])thatObj));
+                    return Arrays.equals((int[]) thisObj, (int[]) thatObj);
                 } else if (Short.TYPE.equals(componentType)) {
-                    return Arrays.equals((short[])((short[])thisObj), (short[])((short[])thatObj));
+                    return Arrays.equals((short[]) thisObj, (short[]) thatObj);
                 } else if (Character.TYPE.equals(componentType)) {
-                    return Arrays.equals((char[])((char[])thisObj), (char[])((char[])thatObj));
+                    return Arrays.equals((char[]) thisObj, (char[]) thatObj);
                 } else if (Byte.TYPE.equals(componentType)) {
-                    return Arrays.equals((byte[])((byte[])thisObj), (byte[])((byte[])thatObj));
+                    return Arrays.equals((byte[]) thisObj, (byte[]) thatObj);
                 } else if (Boolean.TYPE.equals(componentType)) {
-                    return Arrays.equals((boolean[])((boolean[])thisObj), (boolean[])((boolean[])thatObj));
+                    return Arrays.equals((boolean[]) thisObj, (boolean[]) thatObj);
                 } else if (Float.TYPE.equals(componentType)) {
-                    return Arrays.equals((float[])((float[])thisObj), (float[])((float[])thatObj));
+                    return Arrays.equals((float[]) thisObj, (float[]) thatObj);
                 } else {
-                    return Double.TYPE.equals(componentType) ? Arrays.equals((double[])((double[])thisObj), (double[])((double[])thatObj)) : Arrays.equals((Object[])((Object[])thisObj), (Object[])((Object[])thatObj));
+                    return Double.TYPE.equals(componentType) ? Arrays.equals((double[]) thisObj, (double[]) thatObj) : Arrays.equals((Object[]) thisObj, (Object[]) thatObj);
                 }
             }
         }
@@ -86,21 +86,21 @@ public class ArrayUtil {
             } else {
                 Class<?> componentType = obj.getClass().getComponentType();
                 if (Long.TYPE.equals(componentType)) {
-                    return Arrays.toString((long[])((long[])obj));
+                    return Arrays.toString((long[]) obj);
                 } else if (Integer.TYPE.equals(componentType)) {
-                    return Arrays.toString((int[])((int[])obj));
+                    return Arrays.toString((int[]) obj);
                 } else if (Short.TYPE.equals(componentType)) {
-                    return Arrays.toString((short[])((short[])obj));
+                    return Arrays.toString((short[]) obj);
                 } else if (Character.TYPE.equals(componentType)) {
-                    return Arrays.toString((char[])((char[])obj));
+                    return Arrays.toString((char[]) obj);
                 } else if (Byte.TYPE.equals(componentType)) {
-                    return Arrays.toString((byte[])((byte[])obj));
+                    return Arrays.toString((byte[]) obj);
                 } else if (Boolean.TYPE.equals(componentType)) {
-                    return Arrays.toString((boolean[])((boolean[])obj));
+                    return Arrays.toString((boolean[]) obj);
                 } else if (Float.TYPE.equals(componentType)) {
-                    return Arrays.toString((float[])((float[])obj));
+                    return Arrays.toString((float[]) obj);
                 } else {
-                    return Double.TYPE.equals(componentType) ? Arrays.toString((double[])((double[])obj)) : Arrays.toString((Object[])((Object[])obj));
+                    return Double.TYPE.equals(componentType) ? Arrays.toString((double[]) obj) : Arrays.toString((Object[]) obj);
                 }
             }
         }

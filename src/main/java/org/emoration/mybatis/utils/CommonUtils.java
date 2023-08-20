@@ -13,41 +13,40 @@ import java.util.Map;
 public final class CommonUtils {
 
     /**
-     * string is not empty
+     * 字符串是否非空(且非纯空白符)
      *
-     * @param src
-     * @return
+     * @param s 字符串
+     * @return 是否非空
      */
-    public static boolean isNotEmpty(String src) {
-        return src != null && src.trim().length() > 0;
+    public static boolean isNotEmpty(String s) {
+        return s != null && !s.trim().isEmpty();
     }
 
     /**
-     * list/set is not empty
+     * list/set是否非空
      *
-     * @param collection
-     * @return
+     * @param collection collection
+     * @return 是否非空
      */
     public static boolean isNotEmpty(Collection<?> collection) {
         return collection != null && !collection.isEmpty();
     }
 
     /**
-     * map is not empty
+     * map是否非空
      *
-     * @param map
-     * @return
+     * @param map map
+     * @return 是否非空
      */
     public static boolean isNotEmpty(Map<?, ?> map) {
         return map != null && !map.isEmpty();
     }
 
     /**
-     * 数组不为空
+     * 数组是否非空
      *
-     * @param arr
-     * @return
-     * @see
+     * @param arr arr
+     * @return 是否非空
      */
     public static boolean isNotEmpty(Object[] arr) {
         return arr != null && arr.length > 0;
@@ -56,7 +55,7 @@ public final class CommonUtils {
     /**
      * 对字符串去空白符和换行符等
      *
-     * @return
+     * @return 去除后的字符串
      */
     public static String stringTrim(String src) {
         return (null != src) ? src.trim() : null;

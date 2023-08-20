@@ -19,11 +19,13 @@ import org.emoration.mybatis.utils.XmlUtil;
  */
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
-    /** the configuration */
+    /**
+     * the configuration
+     */
     private final Configuration configuration;
 
     /**
-     * @param configuration
+     * @param configuration 配置
      */
     public DefaultSqlSessionFactory(Configuration configuration) {
 
@@ -34,26 +36,24 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
     /**
      * 开启会话
      *
-     * @return
+     * @return SqlSession
      */
     @Override
     public SqlSession openSession() {
 
-        SqlSession session = new DefaultSqlSession(this.configuration);
-
-        return session;
+        return new DefaultSqlSession(this.configuration);
     }
 
     /**
      * loadMappersInfo
      *
-     * @param dirName
-     * @see
+     * @param dirName mapper的目录名
      */
     private void loadMappersInfo(String dirName) {
 
         URL resources = DefaultSqlSessionFactory.class.getClassLoader().getResource(dirName);
 
+        assert resources != null;
         File mappersDir = new File(resources.getFile());
 
         if (mappersDir.isDirectory()) {

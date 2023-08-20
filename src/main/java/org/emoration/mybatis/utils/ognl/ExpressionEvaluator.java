@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * @Author czh
- * @Description TODO
+ * @Description 表达式计算
  * @Date 2023/8/10
  */
 public class ExpressionEvaluator {
@@ -23,7 +23,7 @@ public class ExpressionEvaluator {
         OgnlContext context = Ognl.createDefaultContext(objectMap,
                 new DefaultMemberAccess(true), new DefaultClassResolver(), new DefaultTypeConverter());
 
-        Object ans = null;
+        Object ans;
         try {
             ans = Ognl.getValue(Ognl.parseExpression(expression), context, context.getRoot());
         } catch (OgnlException e) {

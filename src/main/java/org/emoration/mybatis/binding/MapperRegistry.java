@@ -20,18 +20,18 @@ public class MapperRegistry {
     /**
      * 注册代理工厂
      *
-     * @param type
+     * @param type mapper接口类型
      */
     public <T> void addMapper(Class<T> type) {
-        this.knownMappers.put(type, new MapperProxyFactory<T>(type));
+        this.knownMappers.put(type, new MapperProxyFactory<>(type));
     }
 
     /**
      * 获取代理工厂实例
      *
-     * @param type
-     * @param sqlSession
-     * @return
+     * @param type       mapper接口类型
+     * @param sqlSession sqlSession
+     * @return 代理工厂实例
      */
     @SuppressWarnings("unchecked")
     public <T> T getMapper(Class<T> type, SqlSession sqlSession) {

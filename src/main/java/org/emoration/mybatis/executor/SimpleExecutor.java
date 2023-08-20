@@ -28,7 +28,7 @@ public class SimpleExecutor extends BaseExecutor {
     /**
      * 初始化方法
      *
-     * @param configuration
+     * @param configuration 配置
      */
     public SimpleExecutor(Configuration configuration) {
         super(configuration);
@@ -37,9 +37,9 @@ public class SimpleExecutor extends BaseExecutor {
     /**
      * 根据参数查询数据库
      *
-     * @param ms
-     * @param parameter
-     * @return
+     * @param ms        MappedStatement
+     * @param parameter 参数
+     * @return 结果
      */
     @Override
     public <E> List<E> doQuery(MappedStatement ms, Object parameter) throws SQLException {
@@ -82,8 +82,8 @@ public class SimpleExecutor extends BaseExecutor {
     /**
      * doUpdate
      *
-     * @param ms
-     * @param parameter
+     * @param ms        MappedStatement
+     * @param parameter 参数
      */
     @Override
     public int doUpdate(MappedStatement ms, Object parameter) throws SQLException {
