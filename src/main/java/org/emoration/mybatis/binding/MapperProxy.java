@@ -167,6 +167,10 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
      */
     @Data
     public static class ParameterPair {
+
+        private Object parameterValue;
+        private String parameterName;
+
         public ParameterPair(String parameterName, Object parameterValue) {
             this.parameterName = parameterName;
             this.parameterValue = parameterValue;
@@ -175,7 +179,9 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
         public ParameterPair() {
         }
 
-        private Object parameterValue;
-        private String parameterName;
+        @Override
+        public String toString() {
+            return parameterName + "=" + "(" + parameterValue.getClass().getSimpleName() + ")" + parameterValue;
+        }
     }
 }

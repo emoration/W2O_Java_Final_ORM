@@ -2,13 +2,12 @@ package org.emoration.mybatis.executor;
 
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.emoration.mybatis.constants.Constant;
+import org.emoration.mybatis.binding.MapperProxy;
 import org.emoration.mybatis.executor.parameter.DefaultParameterHandler;
 import org.emoration.mybatis.executor.parameter.ParameterHandler;
 import org.emoration.mybatis.executor.resultset.DefaultResultSetHandler;
@@ -24,17 +23,7 @@ import org.emoration.mybatis.session.Configuration;
  * @Description 简单的执行器
  * @Date 2023/8/4
  */
-public class SimpleExecutor implements Executor {
-    /**
-     * 数据库连接
-     */
-    private static Connection connection;
-
-    private Configuration conf;
-
-    static {
-        initConnect();
-    }
+public class SimpleExecutor extends BaseExecutor {
 
     /**
      * 初始化方法
@@ -42,7 +31,7 @@ public class SimpleExecutor implements Executor {
      * @param configuration
      */
     public SimpleExecutor(Configuration configuration) {
-        this.conf = configuration;
+        super(configuration);
     }
 
     /**
@@ -54,11 +43,21 @@ public class SimpleExecutor implements Executor {
      */
     @Override
     public <E> List<E> doQuery(MappedStatement ms, Object parameter) throws SQLException {
+        System.out.print("==> SQL   : ");
+        System.out.println(ms.getSql());
+        System.out.print("==> PARAM : ");
+        for (int i = 0; i < ((MapperProxy.ParameterPair[]) parameter).length; i++) {
+            if (i != 0) {
+                System.out.print(", ");
+            }
+            System.out.print(((MapperProxy.ParameterPair[]) parameter)[i]);
+        }
+        System.out.println();
         //1.获取数据库连接
-        Connection connection = getConnect();
+        Connection connection = getConnection();
 
         //2.获取MappedStatement信息，里面有sql信息
-        MappedStatement mappedStatement = conf.getMappedStatement(ms.getSqlId());
+        MappedStatement mappedStatement = configuration.getMappedStatement(ms.getSqlId());
 
         //3.实例化StatementHandler对象，
         StatementHandler statementHandler = new SimpleStatementHandler(mappedStatement);
@@ -75,7 +74,9 @@ public class SimpleExecutor implements Executor {
 
         //7.实例化ResultSetHandler，通过反射将ResultSet中结果设置到目标resultType对象中
         ResultSetHandler resultSetHandler = new DefaultResultSetHandler(mappedStatement);
-        return resultSetHandler.handleResultSets(resultSet);
+        List<E> results = resultSetHandler.handleResultSets(resultSet);
+        System.out.println("<== RESULT: " + results);
+        return results;
     }
 
     /**
@@ -86,11 +87,21 @@ public class SimpleExecutor implements Executor {
      */
     @Override
     public int doUpdate(MappedStatement ms, Object parameter) throws SQLException {
+        System.out.print("==> SQL   : ");
+        System.out.println(ms.getSql());
+        System.out.print("==> PARAM : ");
+        for (int i = 0; i < ((MapperProxy.ParameterPair[]) parameter).length; i++) {
+            if (i != 0) {
+                System.out.print(", ");
+            }
+            System.out.print(((MapperProxy.ParameterPair[]) parameter)[i]);
+        }
+        System.out.println();
         //1.获取数据库连接
-        Connection connection = getConnect();
+        Connection connection = getConnection();
 
         //2.获取MappedStatement信息，里面有sql信息
-        MappedStatement mappedStatement = conf.getMappedStatement(ms.getSqlId());
+        MappedStatement mappedStatement = configuration.getMappedStatement(ms.getSqlId());
 
         //3.实例化StatementHandler对象，
         StatementHandler statementHandler = new SimpleStatementHandler(mappedStatement);
@@ -103,106 +114,9 @@ public class SimpleExecutor implements Executor {
         parameterHandler.setParameters(preparedStatement);
 
         //6.执行SQL
-        return statementHandler.update(preparedStatement);
+        int result = statementHandler.update(preparedStatement);
+        System.out.println("<== RESULT: " + result);
+        return result;
     }
-
-    /**
-     * 提交事务
-     */
-    @Override
-    public void commit() throws SQLException {
-        Connection connection = getConnect();
-        if (connection.isClosed()) {
-            throw new SQLException("连接已关闭，不能提交");
-        }
-        connection.commit();
-    }
-
-    /**
-     * 设置是否自动提交事务
-     *
-     * @param autoCommit
-     * @throws SQLException
-     */
-    @Override
-    public void setAutoCommit(boolean autoCommit) throws SQLException {
-        Connection connection = getConnect();
-        if (connection.isClosed()) {
-            throw new SQLException("连接已关闭，不能设置自动提交");
-        }
-        connection.setAutoCommit(autoCommit);
-    }
-
-    /**
-     * 回滚事务
-     */
-    @Override
-    public void rollback() throws SQLException {
-        Connection connection = getConnect();
-        if (connection.isClosed()) {
-            throw new SQLException("连接已关闭，不能回滚");
-        }
-        connection.rollback();
-    }
-
-    /**
-     * 关闭连接
-     */
-    @Override
-    public void close() throws SQLException {
-        Connection connection = getConnect();
-        if (connection.isClosed()) {
-            throw new SQLException("连接已关闭，不能重复关闭");
-        }
-        connection.close();
-    }
-    /**
-     * 判断连接是否关闭
-     */
-    @Override
-    public boolean isClosed() {
-        try {
-            Connection connection = getConnect();
-            return connection.isClosed();
-        } catch (SQLException e) {
-            return true;
-        }
-    }
-
-    /**
-     * getConnect
-     *
-     * @return
-     * @throws SQLException
-     */
-    public Connection getConnect() throws SQLException {
-        if (null != connection) {
-            return connection;
-        } else {
-            throw new SQLException("无法连接数据库，请检查配置");
-        }
-    }
-
-    /**
-     * 静态初始化数据库连接
-     *
-     * @return
-     */
-    private static void initConnect() {
-
-        String driver = Configuration.getProperty(Constant.DB_DRIVER_CONF);
-        String url = Configuration.getProperty(Constant.DB_URL_CONF);
-        String username = Configuration.getProperty(Constant.DB_USERNAME_CONF);
-        String password = Configuration.getProperty(Constant.DB_PASSWORD);
-
-        try {
-            Class.forName(driver);
-            connection = DriverManager.getConnection(url, username, password);
-            System.out.println("数据库连接成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }

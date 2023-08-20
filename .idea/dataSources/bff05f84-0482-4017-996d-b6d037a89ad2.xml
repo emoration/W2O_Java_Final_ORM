@@ -11,8 +11,8 @@
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="3" parent="1" name="draft2">
-      <IntrospectionTimestamp>2023-08-08.01:59:28</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-08-07.09:59:28</LocalIntrospectionTimestamp>
+      <IntrospectionTimestamp>2023-08-11.20:05:22</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-08-11.04:05:22</LocalIntrospectionTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="4" parent="1" name="information_schema">
@@ -34,13 +34,49 @@
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="10" parent="9" name="id">
+    <table id="10" parent="3" name="zoo">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="11" parent="9" name="id">
       <DasType>varchar(30)|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="11" parent="9" name="name">
+    <column id="12" parent="9" name="name">
       <DasType>varchar(30)|0s</DasType>
       <Position>2</Position>
     </column>
+    <column id="13" parent="10" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="14" parent="10" name="name">
+      <DasType>varchar(30)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="15" parent="10" name="price">
+      <DasType>double|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <index id="16" parent="10" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="17" parent="10" name="zoo_uk">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="18" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="19" parent="10" name="zoo_uk">
+      <UnderlyingIndexName>zoo_uk</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>

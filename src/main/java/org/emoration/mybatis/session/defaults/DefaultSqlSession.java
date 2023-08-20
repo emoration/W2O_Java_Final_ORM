@@ -4,14 +4,11 @@ package org.emoration.mybatis.session.defaults;
 import java.sql.SQLException;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.emoration.mybatis.executor.Executor;
 import org.emoration.mybatis.executor.SimpleExecutor;
 import org.emoration.mybatis.mapping.MappedStatement;
 import org.emoration.mybatis.session.Configuration;
 import org.emoration.mybatis.session.SqlSession;
-import org.emoration.mybatis.utils.CommonUtils;
 
 
 /**
@@ -79,7 +76,7 @@ public class DefaultSqlSession implements SqlSession {
     public <E> List<E> selectList(String statementId, Object parameter) {
         MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
         try {
-            return this.executor.<E>doQuery(mappedStatement, parameter);
+            return this.executor.<E>query(mappedStatement, parameter);
         } catch (SQLException e) {
             rollback();
             close();
@@ -99,7 +96,7 @@ public class DefaultSqlSession implements SqlSession {
         this.dirty = true;
         MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
         try {
-            return this.executor.doUpdate(mappedStatement, parameter);
+            return this.executor.update(mappedStatement, parameter);
         } catch (SQLException e) {
             rollback();
             close();
@@ -119,7 +116,7 @@ public class DefaultSqlSession implements SqlSession {
         this.dirty = true;
         MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
         try {
-            return this.executor.doUpdate(mappedStatement, parameter);
+            return this.executor.update(mappedStatement, parameter);
         } catch (SQLException e) {
             rollback();
             close();
@@ -139,7 +136,7 @@ public class DefaultSqlSession implements SqlSession {
         this.dirty = true;
         MappedStatement mappedStatement = this.configuration.getMappedStatement(statementId);
         try {
-            return this.executor.doUpdate(mappedStatement, parameter);
+            return this.executor.update(mappedStatement, parameter);
         } catch (SQLException e) {
             rollback();
             close();
